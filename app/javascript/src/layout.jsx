@@ -12,7 +12,8 @@ const Layout = (props) => {
               <li className="nav-item d-flex flex-row">
                 <a className="nav-link" href="/">Home</a>
                 <a className='nav-link' href="/login">Login</a>
-                <a className='nav-link' href="/listing/new">CreateListing</a>
+                <a className='nav-link' href="/listing/new">Create Listing</a>
+                <a className='nav-link' href="/listings">My Listings</a>
               </li>
             </ul>
           </div>

@@ -15,4 +15,9 @@ class StaticPagesController < ApplicationController
   def newListing
     render 'newListing'
   end
+
+  def listings
+    render 'listings'
+  end
+
 end
