@@ -11,4 +11,8 @@ class StaticPagesController < ApplicationController
   def login
     render 'login'
   end
+
+  def newListing
+    render 'newListing'
+  end
 end
