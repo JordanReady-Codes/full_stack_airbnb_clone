@@ -15,16 +15,19 @@ class Listings extends React.Component {
       }
     
       componentDidMount() {
-        fetch('/api/properties?page=1')
-          .then(handleErrors)
-          .then(data => {
-            this.setState({
-              properties: data.properties,
-              total_pages: data.total_pages,
-              next_page: data.next_page,
-              loading: false,
-            })
-          })
+        // show all the user properties that were created by the current user
+        fetch('/api/properties')
+            .then(handleErrors)
+            .then(data => {
+                this.setState({
+                    properties: data.properties,
+                    total_pages: data.total_pages,
+                    next_page: data.next_page,
+                    loading: false,
+                })
+            }
+        )
+        
       }
     
       loadMore = () => {
@@ -63,17 +66,10 @@ class Listings extends React.Component {
                     </div>
                   )
                 })}
-              </div>
-              {loading && <p>loading...</p>}
-              {(loading || next_page === null) ||
-                <div className="text-center">
-                  <button
-                    className="btn btn-light mb-4"
-                    onClick={this.loadMore}
-                  >load more</button>
                 </div>
-              }
-            </div>
+                {loading && <p>loading...</p>}
+                {next_page && <button className="btn btn-primary" onClick={this.loadMore}>Load More</button>}
+                </div>
           </Layout>
         )
       }

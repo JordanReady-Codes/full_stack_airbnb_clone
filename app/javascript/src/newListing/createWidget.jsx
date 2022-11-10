@@ -16,6 +16,35 @@ class CreateWidget extends React.Component {
         beds: '',
         baths: ''
       }
+
+    submitProperty = (e) => {
+        e.preventDefault();
+
+        let formData = new FormData();
+        formData.append('property[title]', this.state.title);
+        formData.append('property[description]', this.state.description);
+        formData.append('property[city]', this.state.city);
+        formData.append('property[country]', this.state.country);
+        formData.append('property[property_type]', this.state.property_type);
+        formData.append('property[price_per_night]', this.state.price_per_night);
+        formData.append('property[max_guests]', this.state.max_guests);
+        formData.append('property[bedrooms]', this.state.bedrooms);
+        formData.append('property[beds]', this.state.beds);
+        formData.append('property[baths]', this.state.baths);
+        
+        fetch('api/properties', {
+            method: 'POST',
+            body: formData,
+            headers: { 'Content-Type': 'application/json' }
+    
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+    }
     
     
       render() {
