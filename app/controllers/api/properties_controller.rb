@@ -18,11 +18,23 @@ module Api
         token = cookies.signed[:airbnb_session_token]
         session = Session.find_by(token: token)
         user = session.user
-        @property = Property.new(property_params)
+        @property = user.properties.new(property_params)
         if @property.save
           render :show, status: :created
         else
           render json: {error: 'unable to create property'}
+        end
+      end
+
+      def index_by_user
+        token = cookies.signed[:airbnb_session_token]
+        session = Session.find_by(token: token)
+        user = session.user
+        if user
+          @properties = user.properties
+          render 'api/properties/index', status: :ok
+        else
+          render json: {error: 'unable to find user'}
         end
       end
 

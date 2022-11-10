@@ -1,79 +1,83 @@
 import React from "react";
 import Layout from "../layout";
-import { handleErrors } from "../utils/fetchHelper";
+import { safeCredentials, handleErrors } from "@utils/fetchHelper";
 
 import "./listings.scss";
 
-
-
 class Listings extends React.Component {
-    state = {
-        properties: [],
-        total_pages: null,
-        next_page: null,
-        loading: true,
-      }
-    
-      componentDidMount() {
-        // show all the user properties that were created by the current user
-        fetch('/api/properties')
-            .then(handleErrors)
-            .then(data => {
-                this.setState({
-                    properties: data.properties,
-                    total_pages: data.total_pages,
-                    next_page: data.next_page,
-                    loading: false,
-                })
-            }
-        )
-        
-      }
-    
-      loadMore = () => {
-        if (this.state.next_page === null) {
-          return;
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            properties: [],
         }
-        this.setState({ loading: true });
-        fetch(`/api/properties?page=${this.state.next_page}`)
-          .then(handleErrors)
-          .then(data => {
-            this.setState({
-              properties: this.state.properties.concat(data.properties),
-              total_pages: data.total_pages,
-              next_page: data.next_page,
-              loading: false,
-            })
-          })
-      }
-    
-      render () {
-        const { properties, next_page, loading } = this.state;
-        return (
-          <Layout>
-            <div className="container pt-4">
-              <h1 className="mb-1 heading">Your Listings</h1>
-              <div className="row gx-5">
-                {properties.map(property => {
-                  return (
-                    <div key={property.id} className="col-6 col-lg-4 mb-4 property rounded">
-                      <a href={`/property/${property.id}`} className="text-body text-decoration-none">
-                        <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />
-                        <p className="text-uppercase mb-0 text-secondary"><small><b>{property.city}</b></small></p>
-                        <h6 className="mb-0">{property.title}</h6>
-                        <p className="mb-0"><small>${property.price_per_night} USD/night</small></p>
-                      </a>
-                    </div>
-                  )
-                })}
-                </div>
-                {loading && <p>loading...</p>}
-                {next_page && <button className="btn btn-primary" onClick={this.loadMore}>Load More</button>}
-                </div>
-          </Layout>
-        )
-      }
+
+        this.getUsername = this.getUsername.bind(this);
+        this.getProperties = this.getProperties.bind(this);
     }
+
+  componentDidMount() {
+    this.getUsername();
+    this.getProperties();
+  }
+
+  getUsername() {
+    fetch('/api/authenticated', safeCredentials({
+      method: 'GET',
+      }))
+      .then(handleErrors)
+      .then(data => {
+        this.setState({
+          username: data.username,
+        })
+    })
+  }
+  
+  getProperties() {
+    fetch(`/api/properties`, safeCredentials({
+      method: 'GET',
+      }))
+      .then(handleErrors)
+      .then(data => {
+        this.setState({
+          properties: data.properties,
+        })
+    })
+  }
+
+  render() {
+    const { properties, username } = this.state;
+    return (
+      <Layout>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h1 className="heading mb-5">
+                Your Listings {username}
+              </h1>
+            </div>
+          </div>
+          <div className="row">
+            {properties.map(property => (
+              <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4" key={property.id}>
+                <div className="card">
+                  <img src={property.image_url} className="card-img-top" alt={`${property.title} image`} />
+                  <div className="card-body">
+                    <h5 className="card-title">{property.title}</h5>
+                    <p className="card-text">{property.description}</p>
+                    <a href={`/properties/${property.id}`} className="btn custom-button">
+                      View Listing
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+}
 
 export default Listings;
 

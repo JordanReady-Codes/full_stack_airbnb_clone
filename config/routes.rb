@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create]
     resources :sessions, only: [:create, :destroy]
     resources :properties, only: [:index, :show, :create]
+    get '/properties/user' => 'properties#index_by_user'
     resources :bookings, only: [:create]
     resources :charges, only: [:create]
 
