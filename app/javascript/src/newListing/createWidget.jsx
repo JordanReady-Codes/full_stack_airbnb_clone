@@ -4,18 +4,24 @@ import "./createWidget.scss";
 
 
 class CreateWidget extends React.Component {
-    state = {
-        title: '',
-        description: '',
-        city: '',
-        country: '',
-        property_type: '',
-        price_per_night: '',
-        max_guests: '',
-        bedrooms: '',
-        beds: '',
-        baths: ''
-      }
+    constructor(props) {
+        super(props);
+        this.state = {
+            property: {
+                title: '',
+                description: '',
+                city: '',
+                country: '',
+                property_type: '',
+                price_per_night: '',
+                max_guests: '',
+                bedrooms: '',
+                beds: '',
+                baths: ''
+            },
+            errors: {}
+        }
+    }
 
     submitProperty = (e) => {
         e.preventDefault();
@@ -31,12 +37,11 @@ class CreateWidget extends React.Component {
         formData.append('property[bedrooms]', this.state.bedrooms);
         formData.append('property[beds]', this.state.beds);
         formData.append('property[baths]', this.state.baths);
-        
+
         fetch('api/properties', {
             method: 'POST',
             body: formData,
-            headers: { 'Content-Type': 'application/json' }
-    
+            headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
         })
         .then(response => {
             if (response.ok) {
@@ -44,6 +49,7 @@ class CreateWidget extends React.Component {
             }
             throw new Error("Network response was not ok.");
         })
+        .catch(error => console.log(error.message));
     }
     
     

@@ -15,19 +15,18 @@ module Api
       end
 
       def create
+        token = cookies.signed[:airbnb_session_token]
+        session = Session.find_by(token: token)
+        user = session.user
         @property = Property.new(property_params)
-        @property.user = current_user
         if @property.save
           render :show, status: :created
         else
-          render json: @property.errors, status: :unprocessable_entity
+          render json: {error: 'unable to create property'}
         end
       end
 
       private
-        def set_property
-          @property = Property.find(params[:id])
-        end
 
         def property_params
           params.require(:property).permit(:title, :description, :city, :country, :property_type, :price_per_night, :max_guests, :bedrooms, :beds, :baths, :image_url)
