@@ -1,34 +1,83 @@
 import React from "react";
 import Layout from "../layout";
+import { handleErrors } from "../utils/fetchHelper";
+
+import "./listings.scss";
+
+
 
 class Listings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        listings: []
-        };
-    }
+    state = {
+        properties: [],
+        total_pages: null,
+        next_page: null,
+        loading: true,
+      }
     
-    render() {
+      componentDidMount() {
+        fetch('/api/properties?page=1')
+          .then(handleErrors)
+          .then(data => {
+            this.setState({
+              properties: data.properties,
+              total_pages: data.total_pages,
+              next_page: data.next_page,
+              loading: false,
+            })
+          })
+      }
+    
+      loadMore = () => {
+        if (this.state.next_page === null) {
+          return;
+        }
+        this.setState({ loading: true });
+        fetch(`/api/properties?page=${this.state.next_page}`)
+          .then(handleErrors)
+          .then(data => {
+            this.setState({
+              properties: this.state.properties.concat(data.properties),
+              total_pages: data.total_pages,
+              next_page: data.next_page,
+              loading: false,
+            })
+          })
+      }
+    
+      render () {
+        const { properties, next_page, loading } = this.state;
         return (
-            <Layout>
-        <div>
-            <h1>Listings</h1>
-            <div>
-            {this.state.listings.map(listing => {
-                return (
-                <div key={listing.id}>
-                    <h3>{listing.title}</h3>
-                    <p>{listing.description}</p>
+          <Layout>
+            <div className="container pt-4">
+              <h1 className="mb-1 heading">Your Listings</h1>
+              <div className="row gx-5">
+                {properties.map(property => {
+                  return (
+                    <div key={property.id} className="col-6 col-lg-4 mb-4 property rounded">
+                      <a href={`/property/${property.id}`} className="text-body text-decoration-none">
+                        <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />
+                        <p className="text-uppercase mb-0 text-secondary"><small><b>{property.city}</b></small></p>
+                        <h6 className="mb-0">{property.title}</h6>
+                        <p className="mb-0"><small>${property.price_per_night} USD/night</small></p>
+                      </a>
+                    </div>
+                  )
+                })}
+              </div>
+              {loading && <p>loading...</p>}
+              {(loading || next_page === null) ||
+                <div className="text-center">
+                  <button
+                    className="btn btn-light mb-4"
+                    onClick={this.loadMore}
+                  >load more</button>
                 </div>
-                );
-            })}
+              }
             </div>
-        </div>
-        </Layout>
-        );
+          </Layout>
+        )
+      }
     }
-}
 
 export default Listings;
 
