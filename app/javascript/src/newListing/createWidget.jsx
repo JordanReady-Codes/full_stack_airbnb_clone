@@ -1,16 +1,78 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Layout from "../layout";
+import "./createWidget.scss";
 
 
 class CreateWidget extends React.Component {
-    render() {
+    state = {
+        title: '',
+        description: '',
+        city: '',
+        country: '',
+        property_type: '',
+        price_per_night: '',
+        max_guests: '',
+        bedrooms: '',
+        beds: '',
+        baths: ''
+      }
+    
+    
+      render() {
         return (
-            <div>
-                <h1>Create Listing</h1>
+          <Layout>
+            <div className="container shadow-lg rounded">
+            <form onSubmit={this.submitProperty}>
+                <h1 className="header"> Create a new listing </h1>
+                <div className="form-group">
+                    <label htmlFor="title">Title</label>
+                    <input type="text" className="form-control" id="title" placeholder="Enter title" onChange={(e) => this.setState({title: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <input type="text" className="form-control" id="description" placeholder="Enter description" onChange={(e) => this.setState({description: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="city">City</label>
+                    <input type="text" className="form-control" id="city" placeholder="Enter city" onChange={(e) => this.setState({city: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="country">Country</label>
+                    <input type="text" className="form-control" id="country" placeholder="Enter country" onChange={(e) => this.setState({country: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="property_type">Property Type</label>
+                    <input type="text" className="form-control" id="property_type" placeholder="Enter property type" onChange={(e) => this.setState({property_type: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="price_per_night">Price Per Night</label>
+                    <input type="text" className="form-control" id="price_per_night" placeholder="Enter price per night" onChange={(e) => this.setState({price_per_night: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="max_guests">Max Guests</label>
+                    <input type="text" className="form-control" id="max_guests" placeholder="Enter max guests" onChange={(e) => this.setState({max_guests: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="bedrooms">Bedrooms</label>
+                    <input type="text" className="form-control" id="bedrooms" placeholder="Enter bedrooms" onChange={(e) => this.setState({bedrooms: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="beds">Beds</label>
+                    <input type="text" className="form-control" id="beds" placeholder="Enter beds" onChange={(e) => this.setState({beds: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="baths">Baths</label>
+                    <input type="text" className="form-control" id="baths" placeholder="Enter baths" onChange={(e) => this.setState({baths: e.target.value})} />
+                </div>
+                <button type="submit" className="btn color-main my-2">Submit</button>
+            </form>
             </div>
-        );
+
+          </Layout>
+        )
+      }
+    
     }
-}
 
 export default CreateWidget;
 
