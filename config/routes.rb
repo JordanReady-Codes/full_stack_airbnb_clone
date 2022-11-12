@@ -5,13 +5,15 @@ Rails.application.routes.draw do
   get '/login'                     => 'static_pages#login'
   get '/newListing'                => 'static_pages#newListing'
   get '/listings'                  => 'static_pages#listings'
+  get '/bookings'                  => 'static_pages#bookings'
+  get '/booking/:id/success'       => 'static_pages#paymentSuccess'
+  get '/logout'                    => 'static_pages#logout'
 
   namespace :api do
     # Add routes below this line
     resources :users, only: [:create]
     resources :sessions, only: [:create, :destroy]
     resources :properties, only: [:index, :show, :create]
-    get '/properties/user' => 'properties#index_by_user'
     resources :bookings, only: [:create]
     resources :charges, only: [:create]
 

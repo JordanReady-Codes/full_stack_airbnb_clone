@@ -1,0 +1,20 @@
+$color: #dc3545;
+
+.btn {
+  background-color: $color !important;
+  color: white !important;
+}
+
+.message-border {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid $color !important;
+  border-radius: 0.25rem !important;
+  padding: 1rem !important;
+}
+
+.header {
+  color: $color !important;
+}

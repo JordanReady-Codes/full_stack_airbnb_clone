@@ -23,6 +23,18 @@ module Api
         @bookings = property.bookings.where("end_date > ? ", Date.today)
         render 'api/bookings/index'
       end
+
+      def paymentSuccess
+        @booking = Booking.find_by(id: params[:id])
+        render status: :ok
+      end
+
+      def userBookings
+        user = @current_user
+        @bookings = Booking.where('user_id = ?', user)
+        return render json: { error: 'not_found' }, status: :not_found if !@bookings
+        render  status: :ok
+      end
   
       private
   
