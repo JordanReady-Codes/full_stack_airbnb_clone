@@ -26,16 +26,18 @@ module Api
         end
       end
 
-      def index_by_user
+      def indexByUser
         token = cookies.signed[:airbnb_session_token]
         session = Session.find_by(token: token)
         user = session.user
-        if user
-          @properties = user.properties
-          render 'api/properties/index', status: :ok
-        else
-          render json: {error: 'unable to find user'}
-        end
+        @properties = Property.where("user_id = ?", user)
+        return render json: { error: 'not_found' }, status: :not_found if !@properties
+        render  status: :ok
+      end
+
+      def destroy
+        @property = Property.find_by(id: params[:id])
+        @property.destroy
       end
 
       private

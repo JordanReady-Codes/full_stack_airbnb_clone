@@ -1,0 +1,15 @@
+$color: #dc3545;
+
+.nav-link:hover {
+  color: white !important;
+  background-color: $color !important;
+  border-radius: 50px;
+}
+
+
+.navbar-brand:hover {
+  background-color: transparent !important;
+}
+.navbar-brand {
+  color: $color !important;
+}

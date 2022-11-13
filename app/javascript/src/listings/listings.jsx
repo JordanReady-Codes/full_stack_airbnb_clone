@@ -14,6 +14,7 @@ class Listings extends React.Component {
 
         this.getUsername = this.getUsername.bind(this);
         this.getProperties = this.getProperties.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
   componentDidMount() {
@@ -34,7 +35,7 @@ class Listings extends React.Component {
   }
   
   getProperties() {
-    fetch(`/api/properties`, safeCredentials({
+    fetch(`/api/userProperties`, safeCredentials({
       method: 'GET',
       }))
       .then(handleErrors)
@@ -44,6 +45,16 @@ class Listings extends React.Component {
         })
     })
   }
+
+  handleDelete(e) {
+    e.preventDefault();
+    let id = e.target.id;
+    fetch(`/api/properties/${id}`, safeCredentials({
+      method: 'DELETE',
+      }))
+      window.location.reload();
+  }
+
 
   render() {
     const { properties, username } = this.state;
@@ -64,10 +75,9 @@ class Listings extends React.Component {
                   <img src={property.image_url} className="card-img-top" alt={`${property.title} image`} />
                   <div className="card-body">
                     <h5 className="card-title">{property.title}</h5>
-                    <p className="card-text">{property.description}</p>
-                    <a href={`/properties/${property.id}`} className="btn custom-button">
-                      View Listing
-                    </a>
+                    <p className="card-text">Location: {property.city}</p>
+                    <p className="card-text">Price: ${property.price_per_night}</p>
+                    <button id={property.id} className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
                   </div>
                 </div>
               </div>
