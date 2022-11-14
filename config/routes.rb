@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/property/:id'              => 'static_pages#property'
   get '/login'                     => 'static_pages#login'
   get '/newListing'                => 'static_pages#newListing'
+  get '/editListing/:id'           => 'static_pages#editListing'
   get '/listings'                  => 'static_pages#listings'
   get '/bookings'                  => 'static_pages#bookings'
   get '/booking/:id/success'       => 'static_pages#paymentSuccess'
@@ -13,8 +14,7 @@ Rails.application.routes.draw do
     # Add routes below this line
     resources :users, only: [:create]
     resources :sessions, only: [:create, :destroy]
-    resources :properties, only: [:index, :show, :create]
-    delete '/properties/:id'      => 'properties#destroy'
+    resources :properties, only: [:index, :show, :create, :destroy, :update]
     get 'userProperties'          => 'properties#indexByUser'
     resources :bookings, only: [:create]
     resources :charges, only: [:create]

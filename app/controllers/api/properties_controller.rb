@@ -35,6 +35,16 @@ module Api
         render  status: :ok
       end
 
+      def update
+        @property = Property.find_by(id: params[:id])
+        if @property.update(property_params)
+          render :show, status: :ok
+        else
+          render json: {error: 'unable to update property'}
+        end
+      end
+      
+
       def destroy
         @property = Property.find_by(id: params[:id])
         @property.destroy

@@ -1,9 +1,11 @@
 import React from "react";
 import Layout from "../layout";
-import "./createWidget.scss";
+import { safeCredentials, handleErrors } from "@utils/fetchHelper";
+
+import "./editListing.scss";
 
 
-class CreateWidget extends React.Component {
+class EditWidget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,6 +27,7 @@ class CreateWidget extends React.Component {
 
     submitProperty = (e) => {
         e.preventDefault();
+        const id = window.location.pathname.split('/')[2];
 
         let formData = new FormData();
         formData.append('property[title]', this.state.title);
@@ -37,9 +40,9 @@ class CreateWidget extends React.Component {
         formData.append('property[bedrooms]', this.state.bedrooms);
         formData.append('property[beds]', this.state.beds);
         formData.append('property[baths]', this.state.baths);
-
-        fetch('api/properties', {
-            method: 'POST',
+        
+        fetch(`/api/properties/${id}`, {
+            method: 'PUT',
             body: formData,
             headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
         })
@@ -54,14 +57,13 @@ class CreateWidget extends React.Component {
         })
         .catch(error => console.log(error.message));
     }
-    
-    
+
       render() {
         return (
           <Layout>
             <div className="container shadow-lg rounded">
             <form onSubmit={this.submitProperty}>
-                <h1 className="header"> Create a new listing </h1>
+                <h1 className="header"> Edit your Listing </h1>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input type="text" className="form-control" id="title" placeholder="Enter title" onChange={(e) => this.setState({title: e.target.value})} />
@@ -112,5 +114,4 @@ class CreateWidget extends React.Component {
     
     }
 
-export default CreateWidget;
-
+export default EditWidget;

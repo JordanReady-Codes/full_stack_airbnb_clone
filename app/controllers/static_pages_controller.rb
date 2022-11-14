@@ -33,5 +33,10 @@ class StaticPagesController < ApplicationController
     render 'logout'
   end
 
+  def editListing
+    @data = { property_id: params[:id] }.to_json
+    render 'editListing'
+  end
+  
 
 end

@@ -77,6 +77,7 @@ class Listings extends React.Component {
                     <h5 className="card-title">{property.title}</h5>
                     <p className="card-text">Location: {property.city}</p>
                     <p className="card-text">Price: ${property.price_per_night}</p>
+                    <a href={`/editListing/${property.id}`} className="btn btn-primary">Edit</a>
                     <button id={property.id} className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
                   </div>
                 </div>
