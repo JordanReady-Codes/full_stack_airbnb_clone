@@ -1,5 +1,10 @@
 $color: #dc3545;
 
+
+.card {
+  border: 1px solid $color !important;
+}
+
 .property {
     border: 1px solid $color;
   }
@@ -8,7 +13,6 @@ $color: #dc3545;
     color: $color;
   }
 
-  //make the buttons have even space around them
   .btn {
     margin: 0 5px !important;
   }

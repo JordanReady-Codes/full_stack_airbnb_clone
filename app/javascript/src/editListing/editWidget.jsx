@@ -64,6 +64,7 @@ class EditWidget extends React.Component {
             <div className="container shadow-lg rounded">
             <form onSubmit={this.submitProperty}>
                 <h1 className="header"> Edit your Listing </h1>
+                <h6 className="header"> Please fill in all fields </h6>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input type="text" className="form-control" id="title" placeholder="Enter title" onChange={(e) => this.setState({title: e.target.value})} />

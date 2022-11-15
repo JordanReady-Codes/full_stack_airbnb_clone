@@ -26,6 +26,11 @@ class Listings extends React.Component {
     fetch('/api/authenticated', safeCredentials({
       method: 'GET',
       }))
+      .then(response => {
+        if (response.ok == false) {
+          window.location = "/login"
+        }
+      })
       .then(handleErrors)
       .then(data => {
         this.setState({
@@ -64,14 +69,14 @@ class Listings extends React.Component {
           <div className="row">
             <div className="col-12">
               <h1 className="heading mb-5">
-                Your Listings {username}
+                Your Listings 
               </h1>
             </div>
           </div>
           <div className="row">
             {properties.map(property => (
               <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4" key={property.id}>
-                <div className="card">
+                <div className="card shadow">
                   <img src={property.image_url} className="card-img-top" alt={`${property.title} image`} />
                   <div className="card-body">
                     <h5 className="card-title">{property.title}</h5>
