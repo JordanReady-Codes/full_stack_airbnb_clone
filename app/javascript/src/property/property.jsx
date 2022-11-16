@@ -7,11 +7,14 @@ import { handleErrors } from '@utils/fetchHelper';
 import './property.scss';
 
 class Property extends React.Component {
-  state = {
-    property: {},
-    loading: true,
+  constructor(props) {
+    super(props);
+    this.state = {
+      property: {},
+      loading: true,
+    }
   }
-
+  
   componentDidMount() {
     fetch(`/api/properties/${this.props.property_id}`)
       .then(handleErrors)
@@ -21,7 +24,6 @@ class Property extends React.Component {
           loading: false,
         })
       })
-      console.log(process.env.STRIPE_PUBLISHABLE_KEY);
   }
 
   render () {

@@ -21,7 +21,7 @@ class MyBookings extends React.Component {
               window.location = "/login"
             }
           })
-    fetch(`./api/userBookings/`, safeCredentials())
+    fetch(`/api/userBookings/`, safeCredentials())
           .then(handleErrors)
           .then(data => {
             console.log(data.bookings)

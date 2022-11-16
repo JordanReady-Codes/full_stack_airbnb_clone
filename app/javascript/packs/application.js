@@ -6,6 +6,8 @@
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import dotenv from "dotenv"
 
+dotenv.config()
 Rails.start()
 ActiveStorage.start()
