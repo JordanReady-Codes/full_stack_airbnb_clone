@@ -1,0 +1,55 @@
+$color: #dc3545;
+
+.booking-card {
+  @media (max-width: 576px) {
+    width: 100% !important;
+  }
+}
+
+.property-image {
+    height: 200px;
+    width: 100%;
+    margin-top: 10px;
+    object-fit: cover;
+    object-position: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 5px;
+}
+
+.header {
+    font-weight: bold;
+    text-align: center;
+}
+
+.booking-card {
+    border: 1px solid $color;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+.booking-title {
+    color: $color;
+    font-weight: bold;
+}
+
+.booking-info {
+    color: black;
+}
+
+.booking-btn {
+    background-color: $color !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    margin: 10px !important;
+    &:hover {
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+      font-size: 1.1em;
+      transition: all 0.1s ease-in-out;
+    }
+}
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from '@src/layout';
-import { safeCredentials, handleErrors, getAuthenticityToken } from '@utils/fetchHelper';
+import { handleErrors } from '@utils/fetchHelper';
 import './paymentSuccess.scss';
 
 class PaymentSuccess extends React.Component {
@@ -9,36 +9,40 @@ class PaymentSuccess extends React.Component {
     super(props); 
       this.state = {
       booking: {},
-      property: {}
+      property: {},
       }
   }
 
   componentDidMount() {
-    const re = (/\d+/)
-    const bookingId = window.location.pathname.match(re, '').join();
-    fetch(`/api/paymentSuccess/${bookingId}` )
+    const bookingId = window.location.pathname.split('/')[2];
+    fetch(`/api/bookings/${bookingId}` )
           .then(handleErrors)
           .then(data => {
-            console.log(data.booking)
+            console.log(data.booking);
+            console.log(data.booking.property);
             this.setState({
               booking: data.booking,
-              property: data.booking.property,
+              property: data.booking.property
             })
           })
   }
 
-  
   render () {
     const { booking, property } = this.state;
+
     return (
       <Layout>
         <div className="container pt-4">
-          <h2>Your Booking is Complete, Payment was Successful!</h2>
-          <h4>Here is your booking information</h4>
-          <h3>Property Title: {property.title}</h3>
-          <h5 className="text-secondary">Booking start date: {booking.start_date}</h5>
-          <h5 className="text-secondary">Booking end date: {booking.end_date}</h5>
-          <a href={`/property/${property.id}`} className="text-body text-decoration-none">View Property</a>
+          <h2 className='header'>Your Booking is Complete, Payment was Successful!</h2>
+          <h4 className='header'>Enjoy your stay!</h4>
+          <div className="booking-card shadow">
+          <h2 className='booking-title'>{property.title}</h2>
+          <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />
+            <h5 className='booking-info'>{property.city}, {property.country}</h5>
+            <h5 className="booking-info">Booking start date: {booking.start_date}</h5>
+            <h5 className="booking-info">Booking end date: {booking.end_date}</h5>
+            <a href={`/property/${property.id}`} className="btn booking-btn">View Property</a>
+          </div>
         </div>
       </Layout>
     )

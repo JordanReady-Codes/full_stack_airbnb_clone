@@ -35,6 +35,14 @@ module Api
         return render json: { error: 'not_found' }, status: :not_found if !@bookings
         render  status: :ok
       end
+
+      def show
+        @property = Property.find_by(id: params[:id])
+        @booking = Booking.find_by(id: params[:id])
+        return render json: { error: 'not_found' }, status: :not_found if !@booking
+        render  status: :ok
+      end
+
   
       private
   
