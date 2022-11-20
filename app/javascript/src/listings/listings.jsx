@@ -76,6 +76,7 @@ class Listings extends React.Component {
                   <p className="listing-info">Price: ${property.price_per_night}</p>
                   <a href={`/editListing/${property.id}`} className="btn btn-primary mb-2">Edit</a>
                   <button id={property.id} className="btn btn-danger mb-2" onClick={this.handleDelete}>Delete</button>
+                  <a href={`/property/${property.id}/bookings`} className="btn btn-success mb-2">View Bookings</a>
               </div>
             ))}
           </div>
