@@ -29,11 +29,14 @@ module Api
         render status: :ok
       end
 
-      def userBookings
-        user = @current_user
-        @bookings = Booking.where('user_id = ?', user)
+      def indexByUser
+        token = cookies.signed[:airbnb_session_token]
+        session = Session.find_by(token: token)
+        user = session.user
+        @property = Property.find_by(id: params[:id])
+        @bookings = Booking.where("user_id = ?", user)
         return render json: { error: 'not_found' }, status: :not_found if !@bookings
-        render  status: :ok
+        render status: :ok
       end
 
       def show
@@ -42,12 +45,11 @@ module Api
         return render json: { error: 'not_found' }, status: :not_found if !@booking
         render  status: :ok
       end
-
   
       private
   
       def booking_params
-        params.require(:booking).permit(:property_id, :start_date, :end_date)
+        params.require(:booking).permit(:property_id, :start_date, :end_date, :id)
       end
     end
   end

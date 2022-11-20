@@ -9,7 +9,8 @@ class MyBookings extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        bookings: []
+        bookings: [],
+        property: [],
       }
 
     }
@@ -24,11 +25,10 @@ class MyBookings extends React.Component {
     fetch(`/api/userBookings/`, safeCredentials())
           .then(handleErrors)
           .then(data => {
-            console.log(data.bookings)
+            console.log(data.bookings);
             this.setState({
-              bookings: data.bookings,
+              bookings: data.bookings
             })
-
           })
   }
 
@@ -37,15 +37,15 @@ class MyBookings extends React.Component {
     const { bookings } = this.state;
     return (
         <Layout>
-          <div className="container pt-4">
-          <h1 className="mb-1 header">Your Bookings</h1>
+          <div className="container">
+          <h1 className="mb-1 header">My Bookings</h1>
           <div className="row mt-3">
             {bookings.map(function(booking, index) {
               if (booking.is_paid) {
                 return (
                   <div key={index} className="col-6 col-lg-4 mb-4 property">
                     <p className="text-uppercase mb-0 text-secondary"><b>
-                      {booking.property_title}</b></p>
+                      {booking.property.title}</b></p>
                     <p className="text-uppercase mb-0 text-secondary"><b>Start Date: {booking.start_date}</b></p>
                     <p className="text-uppercase mb-0 text-secondary"><b>End Date: {booking.end_date}</b></p>
                     <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a>
@@ -54,12 +54,14 @@ class MyBookings extends React.Component {
                 )
               } else {
                 return (
-                  <div key={index} className="col-6 col-lg-4 mb-4 property">
-                    <p className="text-uppercase mb-0 text-secondary"><b>
-                      {booking.property_title}</b></p>
-                    <p className="text-uppercase mb-0 text-secondary"><b>Start Date: {booking.start_date}</b></p>
-                    <p className="text-uppercase mb-0 text-secondary"><b>End Date: {booking.end_date}</b></p>
+                  <div key={index} className="col-6 col-lg-4 mb-4 booking-card">
+                    <p className="mb-0 booking-title">
+                      {booking.property.title}</p>
+                      <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${booking.property.image_url})` }} />
+                    <p className="text-uppercase mb-0 booking-info"><b>Start Date: {booking.start_date}</b></p>
+                    <p className="text-uppercase mb-0 booking-info"><b>End Date: {booking.end_date}</b></p>
                     <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a><br/>
+
                   </div>
                 )
               }

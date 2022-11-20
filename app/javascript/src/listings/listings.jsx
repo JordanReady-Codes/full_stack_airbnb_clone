@@ -66,26 +66,16 @@ class Listings extends React.Component {
     return (
       <Layout>
         <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h1 className="heading mb-5">
-                Your Listings 
-              </h1>
-            </div>
-          </div>
+        <h1 className="header mb-1">My Listings</h1>
           <div className="row">
             {properties.map(property => (
-              <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4" key={property.id}>
-                <div className="card shadow">
-                  <img src={property.image_url} className="card-img-top" alt={`${property.title} image`} />
-                  <div className="card-body">
-                    <h5 className="card-title">{property.title}</h5>
-                    <p className="card-text">Location: {property.city}</p>
-                    <p className="card-text">Price: ${property.price_per_night}</p>
-                    <a href={`/editListing/${property.id}`} className="btn btn-primary">Edit</a>
-                    <button id={property.id} className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
-                  </div>
-                </div>
+              <div key={property.id} className="col-6 col-lg-4 mb-4 listing-card">
+                <p className="listing-title">{property.title}</p>
+                <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />
+                  <p className="listing-info">Location: {property.city}</p>
+                  <p className="listing-info">Price: ${property.price_per_night}</p>
+                  <a href={`/editListing/${property.id}`} className="btn btn-primary mb-2">Edit</a>
+                  <button id={property.id} className="btn btn-danger mb-2" onClick={this.handleDelete}>Delete</button>
               </div>
             ))}
           </div>

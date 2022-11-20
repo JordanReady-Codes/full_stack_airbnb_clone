@@ -1,5 +1,39 @@
 $color: #dc3545;
 
+.booking-card {
+  @media (max-width: 576px) {
+    width: 100% !important;
+  }
+}
+
+.property-image {
+    height: 200px;
+    width: 100%;
+    margin-top: 10px;
+    object-fit: cover;
+    object-position: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 5px;
+}
+
 .header {
-  color: $color !important;
+    color: $color;
+}
+
+.booking-card {
+    border: 1px solid $color;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+.booking-title {
+    color: $color;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.booking-info {
+    color: black;
 }

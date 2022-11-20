@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :charges, only: [:create]
 
     get 'userProperties'           => 'properties#indexByUser'
+    get 'userBookings'             => 'bookings#indexByUser'
     get '/bookings/:id'            => 'bookings#show'
     get '/authenticated'           => 'sessions#authenticated'
     get '/properties/:id/bookings' => 'bookings#get_property_bookings'
