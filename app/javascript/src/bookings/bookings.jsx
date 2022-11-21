@@ -44,13 +44,15 @@ class MyBookings extends React.Component {
             {bookings.map(function(booking, index) {
               if (booking.is_paid) {
                 return (
-                  <div key={index} className="col-6 col-lg-4 mb-4 property">
-                    <p className="text-uppercase mb-0 text-secondary"><b>
-                      {booking.property.title}</b></p>
-                    <p className="text-uppercase mb-0 text-secondary"><b>Start Date: {booking.start_date}</b></p>
-                    <p className="text-uppercase mb-0 text-secondary"><b>End Date: {booking.end_date}</b></p>
-                    <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a>
-                    <p className="text-uppercase text-secondary"><b>Booking is fully Paid</b></p>
+                  <div key={index} className="col-6 col-lg-4 mb-4 booking-card">
+                    <p className="mb-0 booking-title">
+                      {booking.property.title}</p>
+                      <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${booking.property.image_url})` }} />
+                    <p className="text-uppercase mb-0 booking-info"><b>This Booking is fully paid!</b></p>
+                    <p className="text-uppercase mb-0 booking-info"><b>Start Date: {booking.start_date}</b></p>
+                    <p className="text-uppercase mb-0 booking-info"><b>End Date: {booking.end_date}</b></p>
+                    <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a><br/>
+                    
                   </div>
                 )
               } else {
@@ -61,8 +63,8 @@ class MyBookings extends React.Component {
                       <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${booking.property.image_url})` }} />
                     <p className="text-uppercase mb-0 booking-info"><b>Start Date: {booking.start_date}</b></p>
                     <p className="text-uppercase mb-0 booking-info"><b>End Date: {booking.end_date}</b></p>
-                    <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a><br/>
                     <ResumeCheckout checkout_session_id={booking.id} />
+                    <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a><br/>
                   </div>
                 )
               }

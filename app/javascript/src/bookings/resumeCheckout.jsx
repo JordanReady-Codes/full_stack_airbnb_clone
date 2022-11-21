@@ -36,7 +36,7 @@ class ResumeCheckout extends React.Component {
   render () {
       return (
        <div>
-         <button className="btn btn-success mb-1" onClick={this.resumeCheckout}>Resume Checkout</button>
+         <button className="btn btn-success" onClick={this.resumeCheckout}>Resume Checkout</button>
        </div>
       );
     };
