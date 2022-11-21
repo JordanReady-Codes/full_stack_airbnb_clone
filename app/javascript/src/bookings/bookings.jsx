@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { safeCredentials, handleErrors } from '@utils/fetchHelper';
 import './bookings.scss';
 import Layout from '@src/layout';
+import ResumeCheckout from '@src/bookings/resumeCheckout';
 
 
 class MyBookings extends React.Component {
@@ -61,7 +62,7 @@ class MyBookings extends React.Component {
                     <p className="text-uppercase mb-0 booking-info"><b>Start Date: {booking.start_date}</b></p>
                     <p className="text-uppercase mb-0 booking-info"><b>End Date: {booking.end_date}</b></p>
                     <a href={`http://localhost:3000/property/${booking.property_id}`} className="text-decoration-none">View Property Listing</a><br/>
-
+                    <ResumeCheckout checkout_session_id={booking.id} />
                   </div>
                 )
               }
