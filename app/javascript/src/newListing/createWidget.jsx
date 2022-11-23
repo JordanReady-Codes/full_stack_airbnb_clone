@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../layout";
 import "./createWidget.scss";
+import { safeCredentials, handleErrors, safeCredentialsForm } from "@utils/fetchHelper";
 
 
 class CreateWidget extends React.Component {
@@ -17,7 +18,8 @@ class CreateWidget extends React.Component {
                 max_guests: '',
                 bedrooms: '',
                 beds: '',
-                baths: ''
+                baths: '',
+                images: []
             },
             errors: {}
         }
@@ -25,8 +27,11 @@ class CreateWidget extends React.Component {
 
     submitProperty = (e) => {
         e.preventDefault();
-
+        let fileSelect = document.getElementById('fileSelect');
         let formData = new FormData();
+        for (let i = 0; i < fileSelect.files.length; i++) {
+            formData.append('property[images][]', fileSelect.files[i]);
+        }
         formData.append('property[title]', this.state.title);
         formData.append('property[description]', this.state.description);
         formData.append('property[city]', this.state.city);
@@ -38,11 +43,11 @@ class CreateWidget extends React.Component {
         formData.append('property[beds]', this.state.beds);
         formData.append('property[baths]', this.state.baths);
 
-        fetch('api/properties', {
+        fetch('api/properties', safeCredentialsForm({
             method: 'POST',
             body: formData,
             headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
-        })
+        }))
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -101,6 +106,10 @@ class CreateWidget extends React.Component {
                 <div className="form-group">
                     <label htmlFor="baths">Baths</label>
                     <input type="text" className="form-control" id="baths" placeholder="Enter baths" onChange={(e) => this.setState({baths: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="images">Images</label>
+                    <input type="file" className="form-control" id="fileSelect" multiple onChange={(e) => this.setState({images: e.target.value})} />
                 </div>
                 <button type="submit" className="btn color-main my-2">Submit</button>
             </form>

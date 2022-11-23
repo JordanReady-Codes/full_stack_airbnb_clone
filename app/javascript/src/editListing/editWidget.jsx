@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../layout";
-import { safeCredentials, handleErrors } from "@utils/fetchHelper";
+import { safeCredentials, handleErrors, safeCredentialsForm } from "@utils/fetchHelper";
 
 import "./editListing.scss";
 
@@ -10,6 +10,7 @@ class EditWidget extends React.Component {
         super(props);
         this.state = {
             property: {
+                id: "",
                 title: '',
                 description: '',
                 city: '',
@@ -19,17 +20,36 @@ class EditWidget extends React.Component {
                 max_guests: '',
                 bedrooms: '',
                 beds: '',
-                baths: ''
+                baths: '',
+                image_url: '',
+                images: [],
             },
             errors: {}
         }
     }
 
+    componentDidMount() {
+        const id = window.location.pathname.split("/")[2];
+        fetch(`/api/properties/${id}`, safeCredentials())
+            .then(handleErrors)
+            .then(data => {
+                this.setState({
+                    property: data.property
+                })
+            })
+            
+    }
+
+
     submitProperty = (e) => {
         e.preventDefault();
         const id = window.location.pathname.split('/')[2];
-
+        let fileSelect = document.getElementById('fileSelect');
         let formData = new FormData();
+        for (let i = 0; i < fileSelect.files.length; i++) {
+            formData.append('property[images][]', fileSelect.files[i]);
+        }
+
         formData.append('property[title]', this.state.title);
         formData.append('property[description]', this.state.description);
         formData.append('property[city]', this.state.city);
@@ -41,11 +61,11 @@ class EditWidget extends React.Component {
         formData.append('property[beds]', this.state.beds);
         formData.append('property[baths]', this.state.baths);
         
-        fetch(`/api/properties/${id}`, {
+        fetch(`/api/properties/${id}`, safeCredentialsForm({
             method: 'PUT',
             body: formData,
             headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
-        })
+        }))
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -104,6 +124,10 @@ class EditWidget extends React.Component {
                 <div className="form-group">
                     <label htmlFor="baths">Baths</label>
                     <input type="text" className="form-control" id="baths" placeholder="Enter baths" onChange={(e) => this.setState({baths: e.target.value})} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="images">Images</label>
+                    <input type="file" className="form-control" id="fileSelect" multiple onChange={(e) => this.setState({images: e.target.value})} />
                 </div>
                 <button type="submit" className="btn color-main my-2">Submit</button>
             </form>
