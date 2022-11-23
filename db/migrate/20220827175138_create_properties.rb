@@ -9,7 +9,7 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.integer :price_per_night
       t.integer :max_guests
       t.integer :bedrooms
-      t.integer :beds 
+      t.integer :beds
       t.integer :baths
       t.string :image_url
       t.belongs_to :user, index: true, foreign_key: true
