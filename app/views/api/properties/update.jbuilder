@@ -9,5 +9,9 @@ json.property do
     json.bedrooms @property.bedrooms
     json.beds @property.beds
     json.baths @property.baths
-    json.image_url @property.image_url
+    json.images do
+        json.array! @property.images do |image|
+            json.image_url url_for(image)
+        end
+    end
 end
