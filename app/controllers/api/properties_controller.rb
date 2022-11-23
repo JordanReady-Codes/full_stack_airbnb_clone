@@ -19,7 +19,9 @@ module Api
         session = Session.find_by(token: token)
         user = session.user
         @property = user.properties.new(property_params)
-        if @property.save
+        if @property.save!
+          @property.images.attach(params[:property][:images][0])
+
           render :show, status: :created
         else
           render json: {error: 'unable to create property'}
@@ -53,7 +55,7 @@ module Api
       private
 
         def property_params
-          params.require(:property).permit(:title, :description, :city, :country, :property_type, :price_per_night, :max_guests, :bedrooms, :beds, :baths, :image_url, images: [])
+          params.require(:property).permit(:title, :description, :city, :country, :property_type, :price_per_night, :max_guests, :bedrooms, :beds, :baths)
         end
 
     end
