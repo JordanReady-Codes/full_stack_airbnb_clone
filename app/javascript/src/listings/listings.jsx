@@ -45,6 +45,8 @@ class Listings extends React.Component {
       }))
       .then(handleErrors)
       .then(data => {
+        console.log("data", data)
+
         this.setState({
           properties: data.properties,
         })

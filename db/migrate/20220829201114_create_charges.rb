@@ -6,7 +6,7 @@ class CreateCharges < ActiveRecord::Migration[6.1]
       t.decimal :amount, precision: 10, scale: 2
       t.boolean :complete, default: false
       t.belongs_to :booking, index: true, foreign_key: true
-      
+
       t.timestamps
     end
   end

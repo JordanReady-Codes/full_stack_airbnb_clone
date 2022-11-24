@@ -15,6 +15,6 @@ class User < ApplicationRecord
   private
 
   def hash_password
-    self.password = BCrypt::Password.create(self.password)
+    self.password = BCrypt::Password.create(password)
   end
 end
