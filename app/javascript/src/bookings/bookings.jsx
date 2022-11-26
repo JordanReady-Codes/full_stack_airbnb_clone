@@ -38,9 +38,9 @@ class MyBookings extends React.Component {
     const { bookings } = this.state;
     return (
         <Layout>
-          <div className="container">
+          <div className="container px-4">
           <h1 className="mb-1 header">My Bookings</h1>
-          <div className="row mt-3">
+          <div className="row mt-3 gx-5">
             {bookings.map(function(booking, index) {
               if (booking.is_paid) {
                 return (

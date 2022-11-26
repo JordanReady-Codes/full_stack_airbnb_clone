@@ -18,7 +18,7 @@ json.bookings do
       json.bedrooms booking.property.bedrooms
       json.beds booking.property.beds
       json.baths booking.property.baths
-      json.image_url booking.property.image_url
+      json.image_url url_for(booking.property.images.first)
     end
   end
 end

@@ -7,22 +7,24 @@ $color: #dc3545;
 }
 
 .property-image {
-    height: 200px;
-    width: 100%;
-    margin-top: 10px;
-    object-fit: cover;
-    object-position: center;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 5px;
+  padding-top: calc(2 / 3 * 100%); /* aspect ratio 3:2 */
+  margin-left: 10px;
+  margin-right: 10px;
+  background-size: cover;
+  background-position: center;
 }
 
 .header {
+    color: $color;
     font-weight: bold;
     text-align: center;
 }
 
 .booking-card {
+  // give the background of the card an opaque glass effect
+    background: linear-gradient(135deg, rgba(240, 70, 70, 0.15), rgba(238, 194, 194, 0.2)) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
     border: 1px solid $color;
     text-align: center;
     width: 50%;
@@ -35,7 +37,7 @@ $color: #dc3545;
 }
 
 .booking-info {
-    color: black;
+    color: rgb(48, 48, 48);
 }
 
 .booking-btn {

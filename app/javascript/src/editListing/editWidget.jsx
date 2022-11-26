@@ -21,7 +21,6 @@ class EditWidget extends React.Component {
                 bedrooms: '',
                 beds: '',
                 baths: '',
-                image_url: '',
                 images: [],
             },
             errors: {}
@@ -43,7 +42,7 @@ class EditWidget extends React.Component {
 
     submitProperty = (e) => {
         e.preventDefault();
-        const id = window.location.pathname.split('/')[2];
+        const id = window.location.pathname.split("/")[2];
         let fileSelect = document.getElementById('fileSelect');
         let formData = new FormData();
         for (let i = 0; i < fileSelect.files.length; i++) {

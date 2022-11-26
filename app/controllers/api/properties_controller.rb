@@ -1,5 +1,6 @@
 module Api
   class PropertiesController < ApplicationController
+
     def index
       @properties = Property.order(created_at: :desc).page(params[:page]).per(6)
       return render json: { error: 'not_found' }, status: :not_found unless @properties
@@ -48,9 +49,14 @@ module Api
     end
 
     def destroy
+      token = cookies.signed[:airbnb_session_token]
+      session = Session.find_by(token: token)
+      user = session.user
       @property = Property.find_by(id: params[:id])
       @property.destroy
     end
+
+
 
     private
 
