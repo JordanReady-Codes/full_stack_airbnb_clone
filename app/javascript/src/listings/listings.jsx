@@ -61,10 +61,9 @@ class Listings extends React.Component {
       method: 'DELETE',
       }))
       .then(handleErrors)
-      .then(data => {
-        console.log("data", data)
-        this.getProperties();
-    })
+      .then(
+        window.location.reload()
+      )
   }
 
 

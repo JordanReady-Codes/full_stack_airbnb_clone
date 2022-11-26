@@ -56,8 +56,6 @@ module Api
       @property.destroy
     end
 
-
-
     private
 
     def property_params

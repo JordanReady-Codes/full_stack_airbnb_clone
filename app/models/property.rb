@@ -1,6 +1,6 @@
 class Property < ApplicationRecord
-  has_many :bookings
-  has_many_attached :images
+  has_many :bookings, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
   belongs_to :user
 
   validates :title, presence: true, length: { maximum: 70 }
