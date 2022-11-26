@@ -1,11 +1,30 @@
 $color: #dc3545;
 
-.nav-link:hover {
-  color: white !important;
-  background-color: $color !important;
-  border-radius: 50px;
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  padding-bottom: 1px !important;
 }
 
+.nav-link:after {
+  content: "" !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 2px !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  background-color: $color !important;
+  transition: width 0.3s !important;
+}
+
+.nav-link:hover {
+  color: $color !important;
+  cursor: default !important;
+}
+
+.nav-link:hover:after {
+  width: 98% !important;
+}
 
 .navbar-brand:hover {
   background-color: transparent !important;

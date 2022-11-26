@@ -15,6 +15,12 @@ class Booking < ApplicationRecord
     charges.pluck(:complete).include?(true)
   end
 
+  def check_property_destroy
+    if property.destroyed?
+      self.destroy
+    end
+  end
+
   private
 
   def check_start_date_smaller_than_end_date

@@ -54,6 +54,7 @@ module Api
       user = session.user
       @property = Property.find_by(id: params[:id])
       @property.destroy
+
     end
 
     private

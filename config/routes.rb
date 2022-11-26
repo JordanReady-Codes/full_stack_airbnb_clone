@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create]
     resources :sessions, only: [:create, :destroy]
     resources :properties, only: [:index, :show, :create, :update]
-    resources :bookings, only: [:create]
+    resources :bookings, only: [:create, :destroy]
     resources :charges, only: [:create]
 
     delete '/properties/:id' => 'properties#destroy'

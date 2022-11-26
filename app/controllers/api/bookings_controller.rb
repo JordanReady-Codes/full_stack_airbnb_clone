@@ -48,6 +48,13 @@ module Api
       render status: :ok
     end
 
+    def destroy
+      @property = Property.find_by(id: params[:id])
+      @booking = Booking.find_by(id: params[:id])
+      @booking.destroy
+    end
+
+
     private
 
     def booking_params

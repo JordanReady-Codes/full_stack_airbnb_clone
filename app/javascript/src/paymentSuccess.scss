@@ -32,8 +32,7 @@ $color: #dc3545;
 }
 
 .booking-title {
-    color: $color;
-    font-weight: bold;
+    color: rgb(48, 48, 48);
 }
 
 .booking-info {
@@ -49,7 +48,6 @@ $color: #dc3545;
     margin: 10px !important;
     &:hover {
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-      font-size: 1.1em;
       transition: all 0.1s ease-in-out;
     }
 }
