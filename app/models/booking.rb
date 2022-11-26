@@ -18,7 +18,7 @@ class Booking < ApplicationRecord
 
   def check_property_destroy
     if property.destroyed?
-      Booking.where(property_id: property.id).destroy_all
+      Booking.where(id: property.id).destroy_all
     end
   end
 

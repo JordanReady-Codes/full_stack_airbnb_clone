@@ -15,4 +15,10 @@ class Property < ApplicationRecord
   validates :baths, presence: true, numericality: { only_integer: true, less_than: 20 }
   validates :user, presence: true
 
+  before_destroy :delete_bookings
+
+  def delete_bookings
+    Booking.where(id: booking.id).destroy_all
+  end
+
 end
