@@ -61,7 +61,7 @@ class EditWidget extends React.Component {
         formData.append('property[baths]', this.state.baths);
         
         fetch(`/api/properties/${id}`, safeCredentialsForm({
-            method: 'PUT',
+            method: 'PATCH',
             body: formData,
             headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
         }))
