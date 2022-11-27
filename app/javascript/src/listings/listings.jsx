@@ -75,14 +75,18 @@ class Listings extends React.Component {
         <h1 className="header mb-1">My Listings</h1>
           <div className="row mt-3 gx-5">
             {properties.map(property => (
-              <div key={property.id} className="col-6 col-lg-4 mb-4 listing-card">
-                <p className="listing-title mb-0">{property.title}</p>
-                <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />
+              <div key={property.id} className="col-6 col-lg-4 mb-4">
+                <div className= 'listing-card'>
+                  <div className="property-image mt-1 mx-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />
+                  <p className="listing-title mb-0">{property.title}</p>
                   <p className="listing-info mb-0">Location: {property.city}</p>
                   <p className="listing-info mb-0">Price: ${property.price_per_night}</p>
-                  <a href={`/editListing/${property.id}`} className="btn btn-primary mb-2">Edit</a>
-                  <button id={property.id} className="btn btn-danger mb-2" onClick={this.handleDelete}>Delete</button>
-                  <a href={`/property/${property.id}/bookings`} className="btn btn-success mb-2">View Bookings</a>
+                  <div className="listing-buttons mt-1">
+                    <a href={`/editListing/${property.id}`} className="btn btn-primary mb-2">Edit</a>
+                    <button id={property.id} className="btn btn-danger mb-2" onClick={this.handleDelete}>Delete</button>
+                    <a href={`/property/${property.id}/bookings`} className="btn btn-success mb-2">View Bookings</a>
+                  </div>
+                  </div>
               </div>
             ))}
           </div>

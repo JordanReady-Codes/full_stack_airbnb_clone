@@ -21,8 +21,7 @@ $color: #dc3545;
 }
 
 .booking-card {
-  // give the background of the card an opaque glass effect
-    background: linear-gradient(135deg, rgba(240, 70, 70, 0.15), rgba(238, 194, 194, 0.2)) !important;
+    background: linear-gradient(35deg, rgba(245, 60, 60, 0.15), rgba(238, 194, 194, 0.2)) !important;
     backdrop-filter: blur(10px);
     border-radius: 20px;
     border: 1px solid $color;

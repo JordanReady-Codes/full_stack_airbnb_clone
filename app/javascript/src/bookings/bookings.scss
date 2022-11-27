@@ -17,10 +17,11 @@ $color: #dc3545;
 }
 
 .booking-card {
+    background: linear-gradient(35deg, rgba(248, 52, 52, 0.15), rgba(238, 194, 194, 0.2)) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
     border: 1px solid $color;
     text-align: center;
-    width: 50%;
-    margin: auto;
 }
 
 .booking-title {
@@ -31,7 +32,6 @@ $color: #dc3545;
 
 .booking-info {
     color: black;
-    font-weight: bold;
     text-transform: uppercase;
 }
 
