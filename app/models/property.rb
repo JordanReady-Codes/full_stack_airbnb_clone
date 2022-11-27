@@ -1,6 +1,6 @@
 class Property < ApplicationRecord
   has_many :bookings, dependent: :destroy
-  has_many_attached :images
+  has_many_attached :images, dependent: :destroy
   belongs_to :user
 
   validates :title, presence: true, length: { maximum: 70 }
@@ -14,11 +14,5 @@ class Property < ApplicationRecord
   validates :beds, presence: true, numericality: { only_integer: true, less_than: 20 }
   validates :baths, presence: true, numericality: { only_integer: true, less_than: 20 }
   validates :user, presence: true
-
-  before_destroy :delete_bookings
-
-  def delete_bookings
-    Booking.where(id: booking.id).destroy_all
-  end
 
 end

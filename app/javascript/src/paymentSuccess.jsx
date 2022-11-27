@@ -34,7 +34,7 @@ class PaymentSuccess extends React.Component {
       <Layout>
         <div className="container pt-4">
           <h2 className='header'>Your Booking is Complete, Payment was Successful!</h2>
-          <h4 className='header'>Enjoy your stay!</h4>
+          <h4 className='header mb-3'>Enjoy your stay!</h4>
           <div className="booking-card shadow">
           <h2 className='booking-title'>{property.title}</h2>
           <div className="property-image mb-1 rounded" style={{ backgroundImage: `url(${property.image_url})` }} />

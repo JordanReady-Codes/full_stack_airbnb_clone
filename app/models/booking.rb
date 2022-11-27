@@ -1,7 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
-  belongs_to :property, dependent: :destroy
-  has_many :charges
+  belongs_to :property
+  has_many :charges, dependent: :destroy
 
   validates :start_date, presence: true
   validates :end_date, presence: true
@@ -10,7 +10,6 @@ class Booking < ApplicationRecord
 
   before_validation :check_start_date_smaller_than_end_date
   before_validation :check_availability
-  before_destroy :check_property_destroy
 
   def is_paid?
     charges.pluck(:complete).include?(true)

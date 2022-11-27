@@ -49,11 +49,13 @@ module Api
     end
 
     def destroy
-      token = cookies.signed[:airbnb_session_token]
-      session = Session.find_by(token: token)
-      user = session.user
       @property = Property.find_by(id: params[:id])
       @property.destroy
+      if @property.destroy!
+        render json: { message: 'property deleted' }, status: :ok
+      else
+        render json: { error: 'unable to delete property' }
+      end
 
     end
 
