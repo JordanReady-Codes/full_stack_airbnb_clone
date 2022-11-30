@@ -40,9 +40,15 @@ class Listings extends React.Component {
   }
   
   getProperties() {
+
     fetch(`/api/userProperties`, safeCredentials({
       method: 'GET',
       }))
+      .then(response => {
+        if (response.ok == false) {
+          window.location = "/login"
+        }
+      })
       .then(handleErrors)
       .then(data => {
         console.log("data", data)

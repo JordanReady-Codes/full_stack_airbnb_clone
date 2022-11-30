@@ -25,6 +25,18 @@ class CreateWidget extends React.Component {
         }
     }
 
+    componentDidMount() {
+        fetch('/api/authenticated', safeCredentials({
+            method: 'GET',
+            }))
+            .then(response => {
+                if (response.ok == false) {
+                    window.location = "/login"
+                }
+            })
+            .then(handleErrors)
+    }
+
     submitProperty = (e) => {
         e.preventDefault();
         let fileSelect = document.getElementById('fileSelect');
