@@ -13,15 +13,33 @@ class StaticPagesController < ApplicationController
   end
 
   def newListing
-    render 'newListing'
+    token = cookies.signed[:airbnb_session_token]
+    session = Session.find_by(token: token)
+    if session
+      render 'newListing'
+    else
+      redirect_to '/login'
+    end
   end
 
   def listings
-    render 'listings'
+    token = cookies.signed[:airbnb_session_token]
+    session = Session.find_by(token: token)
+    if session
+      render 'listings'
+    else
+      redirect_to '/login'
+    end
   end
 
   def bookings
-    render 'bookings'
+    token = cookies.signed[:airbnb_session_token]
+    session = Session.find_by(token: token)
+    if session
+      render 'bookings'
+    else
+      redirect_to '/login'
+    end
   end
 
   def paymentSuccess

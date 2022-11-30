@@ -29,11 +29,6 @@ class CreateWidget extends React.Component {
         fetch('/api/authenticated', safeCredentials({
             method: 'GET',
             }))
-            .then(response => {
-                if (response.ok == false) {
-                    window.location = "/login"
-                }
-            })
             .then(handleErrors)
     }
 

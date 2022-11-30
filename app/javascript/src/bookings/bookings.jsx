@@ -18,11 +18,6 @@ class MyBookings extends React.Component {
 
   componentDidMount() { 
     fetch('/api/authenticated')
-          .then(response => {
-            if (response.ok == false) {
-              window.location = "/login"
-            }
-          })
     fetch(`/api/userBookings/`, safeCredentials())
           .then(handleErrors)
           .then(data => {
