@@ -32,3 +32,8 @@ $color: #dc3545;
 .navbar-brand {
   color: $color !important;
 }
+
+footer {
+  position: sticky;
+  bottom: 0;
+}
